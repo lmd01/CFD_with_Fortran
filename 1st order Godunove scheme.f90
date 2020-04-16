@@ -34,7 +34,7 @@ do j=0,n-1
     enddo
 enddo
 !-----------------------------------------------
-!error
+!output
 open(111,file='Godunovshock_m80.txt')
 do i=0,2*m,2
   write(111,*) ua(i,n)
