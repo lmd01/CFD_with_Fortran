@@ -4,7 +4,8 @@ integer:: i,j,k
 double precision::T,X,pi
 integer,parameter::m=80,n=20!10,20,40,80,160,320
 double precision::dx,dt
-double precision::u(-n:2*m+n,0:n),f(-n+1:2*m+n-1,0:n),ua(-n:2*m+n,0:n)
+double precision::u(-n-2:2*m+n+2,0:n),f(-n+1:2*m+n-1,0:n),ua(-n:2*m+n,0:n)
+double precision::uf(-n:2*m+n,0:n)
 pi=4.d0*datan(1.d0)
 X=2.d0*pi
 T=1.5d0!1.5d0,0.5d0
@@ -12,11 +13,17 @@ dx=X/(2*m)
 dt=T/n
 !-----------------------------------------------
 !IC&BC
-do i=-n,2*m+n
+do i=-n-2,2*m+n+2
   u(i,0)=0.5d0+dsin(i*dx)
 enddo 
+!------------------------------------------------
+!FV method
+do i=-n,2*m+n,2
+  uf(i,0)=(u(i+1,0)+2*u(i,0)+u(i-1,0))/4
+enddo
+
 do i=-n+2,2*m+n-2,2
-  ua(i,0)=(u(i+2,0)+2*u(i,0)+u(i-2,0))/4
+  ua(i,0)=(uf(i+2,0)+2*uf(i,0)+uf(i-2,0))/4
 enddo
 
 !------------------------------------------------
@@ -34,8 +41,8 @@ do j=0,n-1
     enddo
 enddo
 !-----------------------------------------------
-!output
-open(111,file='Godunovshock_m80.txt')
+!error
+open(111,file='newGodunovshock_m80.txt')
 do i=0,2*m,2
   write(111,*) ua(i,n)
 enddo
