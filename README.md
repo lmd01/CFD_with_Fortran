@@ -1,4 +1,12 @@
 #  CFD with Fortran
- CFD with Fortran
-The programs are the homework of my lessons, and i do it by myself. I will update the code once i fininsh the homework. Of course i have test the code on my PC and they are all running with on errors and warnings. If you have any question, you can contect me.
-By the way, if you have better idea of my code, please let me know!
+**此项目存储所选课程《非线性方程组数值解法》中我所编写的作业题**
+*因为是作业，所以程序都是只有主程序，没有做继续的细化，也没有把用到的模块单独列出来*
+## 1D Burgers' equ
+首先是对于一维Burgers' equ的简单求解，对于连续解情况，没有加入限制器，最多达到O(Δx^3)
+
+## WENO limiter
+对于限制器这里我只提供了WENO，其他的限制器用的比较少，这里就不赘述了
+
+## 1D Euler 方程组的求解
+*这是最后的大作业，分两问，第一问是连续解情况，第二问是间断解情况*
+
