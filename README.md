@@ -12,4 +12,4 @@
 ## 1D Euler 方程组的求解
 *这是最后的大作业，分两问，第一问是连续解情况，第二问是间断解情况*
 这里给出用Mathematica软件画出的间断解结果图，间断解为初值发展0.6秒后的结果  
-![image](https://github.com/lmd01/Euler equations/间断解示意图.jpg)
+![image](https://github.com/lmd01/CFD_with_Fortran/Euler equations/间断解示意图.jpg)
