@@ -40,8 +40,8 @@ p(:,0)=1.d0
 do i=-4,2*m+6,2
   do k=0,2
     u(1,i,k)=1.d0+0.2*dsin(xx(i,k))!accurate:dsin(xx-T)
-	u(2,i,k)=u(1,i,k)*v(i,0)
-	u(3,i,k)=p(i,0)/(gamma-1.d0)+u(2,i,k)*v(i,0)/2.d0
+    u(2,i,k)=u(1,i,k)*v(i,0)
+    u(3,i,k)=p(i,0)/(gamma-1.d0)+u(2,i,k)*v(i,0)/2.d0
   enddo
 enddo
 !-----------------------------------------------------
@@ -50,8 +50,7 @@ do i=-4,2*m+6,2
   do l=1,3
     do k=0,2
      ua(l,i,0)=ua(l,i,0)+w(k)*u(l,i,k)/2
-!	 write(*,*)ua(l,i,0),'l=',l
-	enddo
+    enddo
   enddo
 enddo
 !------------------------------------------------------
@@ -60,15 +59,15 @@ do j=0,n-1
   do i=-2,2*m+2,2
     do l=1,3
     uan(l,i+1,j)=-ua(l,i-2,j)/6+5*ua(l,i,j)/6+ua(l,i+2,j)/3
-	uap(l,i-1,j)=ua(l,i,j)/3+5*ua(l,i+2,j)/6-ua(l,i+4,j)/6
-	enddo
+    uap(l,i-1,j)=ua(l,i,j)/3+5*ua(l,i+2,j)/6-ua(l,i+4,j)/6
+    enddo
   enddo
   
   do i=-2,2*m+2,2
     vn(i+1,j)=uan(2,i+1,j)/uan(1,i+1,j)
-	vp(i-1,j)=uap(2,i-1,j)/uap(1,i-1,j)
-	pn(i+1,j)=(gamma-1)*(uan(3,i+1,j)-uan(2,i+1,j)*vn(i+1,j)/2)
-	pp(i-1,j)=(gamma-1)*(uap(3,i-1,j)-uap(2,i-1,j)*vp(i-1,j)/2)
+    vp(i-1,j)=uap(2,i-1,j)/uap(1,i-1,j)
+    pn(i+1,j)=(gamma-1)*(uan(3,i+1,j)-uan(2,i+1,j)*vn(i+1,j)/2)
+    pp(i-1,j)=(gamma-1)*(uap(3,i-1,j)-uap(2,i-1,j)*vp(i-1,j)/2)
   enddo
 !-------------------------------------------------------
 !L-F flux!α=1.2=max|λi|
@@ -84,31 +83,30 @@ do j=0,n-1
   do i=0,2*m,2 
     do l=1,3
     u1(l,i)=ua(l,i,j)-(dt/2/dx)*(f(l,i+1,j)-f(l,i-1,j))
-!	write(*,*)ua(2,i,j)/ua(1,i,j),'l=',l,'i=',i,'j=',j
-	enddo
+    enddo
   enddo
 !---------------------------------------------------------
 !set the ghost point with BC
   do l=1,3
     u1(l,-2)=u1(l,2*m-2)
     u1(l,-4)=u1(l,2*m-4)
-	u1(l,2*m+2)=u1(l,2)
-	u1(l,2*m+4)=u1(l,4)
-	u1(l,2*m+6)=u1(l,6)
+    u1(l,2*m+2)=u1(l,2)
+    u1(l,2*m+4)=u1(l,4)
+    u1(l,2*m+6)=u1(l,6)
   enddo
   
   do i=-2,2*m+2,2
     do l=1,3
     uan1(l,i+1,j)=-u1(l,i-2)/6+5*u1(l,i)/6+u1(l,i+2)/3
-	uap1(l,i-1,j)=u1(l,i)/3+5*u1(l,i+2)/6-u1(l,i+4)/6
-	enddo
+    uap1(l,i-1,j)=u1(l,i)/3+5*u1(l,i+2)/6-u1(l,i+4)/6
+    enddo
   enddo
   
   do i=-2,2*m+2,2
     vn1(i+1,j)=uan1(2,i+1,j)/uan1(1,i+1,j)
-	vp1(i-1,j)=uap1(2,i-1,j)/uap1(1,i-1,j)
-	pn1(i+1,j)=(gamma-1)*(uan1(3,i+1,j)-uan1(2,i+1,j)*vn1(i+1,j)/2)
-	pp1(i-1,j)=(gamma-1)*(uap1(3,i-1,j)-uap1(2,i-1,j)*vp1(i-1,j)/2)
+    vp1(i-1,j)=uap1(2,i-1,j)/uap1(1,i-1,j)
+    pn1(i+1,j)=(gamma-1)*(uan1(3,i+1,j)-uan1(2,i+1,j)*vn1(i+1,j)/2)
+    pp1(i-1,j)=(gamma-1)*(uap1(3,i-1,j)-uap1(2,i-1,j)*vp1(i-1,j)/2)
   enddo
   
   do i=-1,2*m+1,2
@@ -123,30 +121,30 @@ do j=0,n-1
 !step2  
   do i=0,2*m,2 
     do l=1,3
-	  u2(l,i)=3*ua(l,i,j)/4+(u1(l,i)-(dt/(2*dx))*(f1(l,i+1,j)-f1(l,i-1,j)))/4
-	enddo
+      u2(l,i)=3*ua(l,i,j)/4+(u1(l,i)-(dt/(2*dx))*(f1(l,i+1,j)-f1(l,i-1,j)))/4
+    enddo
   enddo
   
   do l=1,3
     u2(l,-2)=u2(l,2*m-2)
     u2(l,-4)=u2(l,2*m-4)
-	u2(l,2*m+2)=u2(l,2)
-	u2(l,2*m+4)=u2(l,4)
-	u2(l,2*m+6)=u2(l,6)
+    u2(l,2*m+2)=u2(l,2)
+    u2(l,2*m+4)=u2(l,4)
+    u2(l,2*m+6)=u2(l,6)
   enddo
   
   do i=-2,2*m+2,2
     do l=1,3
     uan1(l,i+1,j)=-u2(l,i-2)/6+5*u2(l,i)/6+u2(l,i+2)/3
-	uap1(l,i-1,j)=u2(l,i)/3+5*u2(l,i+2)/6-u2(l,i+4)/6
-	enddo
+    uap1(l,i-1,j)=u2(l,i)/3+5*u2(l,i+2)/6-u2(l,i+4)/6
+    enddo
   enddo
   
   do i=-2,2*m+2,2
     vn1(i+1,j)=uan1(2,i+1,j)/uan1(1,i+1,j)
-	vp1(i-1,j)=uap1(2,i-1,j)/uap1(1,i-1,j)
-	pn1(i+1,j)=(gamma-1)*(uan1(3,i+1,j)-uan1(2,i+1,j)*vn1(i+1,j)/2)
-	pp1(i-1,j)=(gamma-1)*(uap1(3,i-1,j)-uap1(2,i-1,j)*vp1(i-1,j)/2)
+    vp1(i-1,j)=uap1(2,i-1,j)/uap1(1,i-1,j)
+    pn1(i+1,j)=(gamma-1)*(uan1(3,i+1,j)-uan1(2,i+1,j)*vn1(i+1,j)/2)
+    pp1(i-1,j)=(gamma-1)*(uap1(3,i-1,j)-uap1(2,i-1,j)*vp1(i-1,j)/2)
   enddo
   
   do i=-1,2*m+1,2
@@ -159,16 +157,16 @@ do j=0,n-1
   
   do i=0,2*m,2 
     do l=1,3  
-	  ua(l,i,j+1)=ua(l,i,j)/3+2*(u2(l,i)-(dt/(2*dx))*(f1(l,i+1,j)-f1(l,i-1,j)))/3
+     ua(l,i,j+1)=ua(l,i,j)/3+2*(u2(l,i)-(dt/(2*dx))*(f1(l,i+1,j)-f1(l,i-1,j)))/3
     enddo
   enddo
   
   do l=1,3
     ua(l,-2,j+1)=ua(l,2*m-2,j+1)
     ua(l,-4,j+1)=ua(l,2*m-4,j+1)
-	ua(l,2*m+2,j+1)=ua(l,2,j+1)
-	ua(l,2*m+4,j+1)=ua(l,4,j+1)
-	ua(l,2*m+6,j+1)=ua(l,6,j+1)
+    ua(l,2*m+2,j+1)=ua(l,2,j+1)
+    ua(l,2*m+4,j+1)=ua(l,4,j+1)
+    ua(l,2*m+6,j+1)=ua(l,6,j+1)
   enddo
   
 enddo
@@ -184,7 +182,7 @@ enddo
 !get error
 do i=0,2*m,2
   do k=0,2
-  uac(i,k)=1.d0+0.2*dsin(xx(i,k)-T)
+    uac(i,k)=1.d0+0.2*dsin(xx(i,k)-T)
   enddo
 enddo
 !-----------------------------------------------------------
